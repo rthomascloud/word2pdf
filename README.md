@@ -20,12 +20,11 @@ go get github.com/rthomascloud/word2pdf
 ```
 
 ## Usage
-I am an OpenBSD fan so this is an example of using it on OpenBSD command line.
-
-<img src="resources/screenshot.png">
+```
+./word2pdf <input.docx> <output.pdf>
+```
 
 ## Build from source
 ```
 go build
-./word2pdf /path/to/file.docx output.pdf
 ```
