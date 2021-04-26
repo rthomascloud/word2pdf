@@ -1,0 +1,49 @@
+project_name: word2pdf
+
+release:
+  github:
+    owner: rthomascloud
+    name: word2pdf
+before:
+  hooks:
+    - go mod download
+builds:
+- binary: word2pdf
+  goos:
+  - darwin
+  - windows
+  - linux
+  - openbsd
+  - freebsd
+  goarch:
+  - amd64
+  - 386
+  env:
+  - CGO_ENABLED=0
+  - GO111MODULE=on
+  main: ./main.go
+archives:
+  - id: default
+    format: tar.gz
+    wrap_in_directory: true
+    format_overrides:
+    - goos: windows
+      format: zip
+    name_template: '{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    files:
+    - README.md
+dist: bin
+snapshot:
+  name_template: SNAPSHOT-{{ .Commit }}
+checksum:
+  name_template: '{{ .ProjectName }}-{{ .Version }}-checksums.txt'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+    - '^dev:'
+    - 'README'
+    - Merge pull request
+    - Merge branch
